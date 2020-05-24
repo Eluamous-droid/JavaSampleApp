@@ -20,10 +20,13 @@ node {
           }
        }
        stage('Building image') {
-                 docker.build registry + ":$BUILD_NUMBER" .
+            steps{
+                script {
+                    docker.build registry + ":$BUILD_NUMBER" .
+                }
+            }
        }
        stage('Push image') {
        docker.push registry + ":$BUILD_NUMBER"
        }
    }
-}
