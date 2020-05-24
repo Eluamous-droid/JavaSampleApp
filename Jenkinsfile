@@ -4,7 +4,7 @@ node {
        registry = "nesmid/cictestapp"
        registryCredential = 'dockerhub'
    }
-   stages{
+   stages {
        stage('Preparation') {
             git 'https://github.com/Eluamous-droid/JavaSampleApp'
             mvnHome = tool 'M3'
