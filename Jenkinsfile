@@ -1,5 +1,9 @@
 node {
    def mvnHome
+   environment {
+       registry = "nesmid/cictestapp"
+       registryCredential = 'dockerhub'
+     }
    stage('Preparation') { // for display purposes
       // Get some code from a GitHub repository
       git 'https://github.com/Eluamous-droid/JavaSampleApp'
@@ -17,5 +21,11 @@ node {
             bat(/"%MVN_HOME%\bin\mvn" -Dmaven.test.failure.ignore clean package/)
          }
       }
+   }
+   stage('Building image') {
+             docker.build registry + ":$BUILD_NUMBER"
+         }
+   stage('Push image'){
+   docker.push registry + ":$BUILD_NUMBER"
    }
 }
