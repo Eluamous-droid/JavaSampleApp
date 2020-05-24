@@ -20,6 +20,7 @@ pipeline {
                 sh '"$MVN_HOME/bin/mvn" -Dmaven.test.failure.ignore clean package'
             }
         }
+    }
     stage('Building image') {
       steps{
         script {
@@ -42,5 +43,4 @@ pipeline {
       }
     }
   }
-}
 }
