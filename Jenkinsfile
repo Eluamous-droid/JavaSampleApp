@@ -5,7 +5,9 @@ pipeline {
     dockerImage = ''
     mvnHome = tool 'M3'
   }
-  agent any
+  agent {
+    label 'docker'
+  }
   stages {
     stage('Preparation') {
         steps{
