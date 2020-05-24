@@ -3,14 +3,14 @@ pipeline {
     registry = "nesmid/cictestapp"
     registryCredential = 'dockerhub'
     dockerImage = ''
-    mvnHome = ''
+    mvnHome = tool 'M3'
   }
   agent any
   stages {
     stage('Preparation') {
         steps{
             git 'https://github.com/Eluamous-droid/JavaSampleApp'
-            mvnHome = tool 'M3'
+
         }
     }
     stage('Build') {
