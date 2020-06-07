@@ -15,14 +15,16 @@ try {
                   }
                   stage("Build JAR") {
                     sh "mvn clean package -Popenshift"
-                    stash name:"jar", includes:"target/app.jar, ../workspace@script/Dockerfile"
+                    stash name:"jar", includes:"target/app.jar"
+                    stash name: "dockerfile",  includes:"../workspace@script/Dockerfile"
                   }
                 }
 
                 node {
                   stage("Build Image") {
-                    dir('/tmp/build'){
+                    dir('/tmp/build/'){
                         unstash name:"jar"
+                        unstash name:"dockerfile"
                     }
                     def status = sh(returnStdout: true, script: "oc start-build ${appName}-docker --from-dir /tmp/build/ -n ${project}")
 
