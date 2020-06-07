@@ -22,7 +22,7 @@ try {
                 node {
                   stage("Build Image") {
                     unstash name:"jar"
-                    def status = sh(returnStdout: true, script: "oc start-build ${appName}-docker --from-file=target/app.jar -n ${project}")
+                    def status = sh(returnStdout: true, script: "oc start-build ${appName}-docker -n ${project}")
 
                     def result = status.split("\n").find{ it.matches("^build.*started") }
                     
