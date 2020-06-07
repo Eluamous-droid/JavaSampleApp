@@ -14,15 +14,15 @@ try {
                     git url: "${GIT_SOURCE_URL}", branch: "${GIT_SOURCE_REF}"
                   }
                   stage("Build WAR") {
-                    sh "mvn clean package "
-                    stash name:"jar", includes:"target/app.jar"
+                    sh "mvn clean package"
+                    stash name:"jar", includes:"target/JavaSampleApp*"
                   }
                 }
 
                 node {
                   stage("Build Image") {
-                    unstash name:"war"
-                    def status = sh(returnStdout: true, script: "oc start-build ${appName}-docker --from-file=target/ROOT.war -n ${project}")
+                    unstash name:"jar"
+                    def status = sh(returnStdout: true, script: "oc start-build ${appName}-docker --from-file=target/JavaSampleApp* -n ${project}")
 
                     def result = status.split("\n").find{ it.matches("^build.*started") }
                     
