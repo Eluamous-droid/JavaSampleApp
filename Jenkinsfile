@@ -16,7 +16,7 @@ try {
                   stage("Build JAR") {
                     sh "mvn clean package -Popenshift"
                     stash name:"jar", includes:"target/app.jar"
-                    stash name: "dockerfile",  includes:"../workspace@script/Dockerfile"
+                    stash name: "dockerfile", includes:"workspace@script/Dockerfile"
                   }
                 }
 
