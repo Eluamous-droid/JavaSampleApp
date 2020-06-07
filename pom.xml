@@ -31,6 +31,13 @@
                             <failOnMissingWebXml>false</failOnMissingWebXml>
                             <outputDirectory>target</outputDirectory>
                             <jarName>app</jarName>
+                            <archive>
+                                <manifest>
+                                    <addClasspath>true</addClasspath>
+                                    <classpathPrefix>lib/</classpathPrefix>
+                                    <mainClass>cic.sample.Main</mainClass>
+                                </manifest>
+                            </archive>
                         </configuration>
                     </plugin>
                 </plugins>
