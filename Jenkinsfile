@@ -17,21 +17,19 @@ try {
                     sh "mvn clean package -Popenshift"
                     stash name:"jar", includes:"target/app.jar"
                   }
-                }
 
-                node {
                   stage("Build Image") {
                     unstash name:"jar"
                     def status = sh(returnStdout: true, script: "oc start-build ${appName}-docker -n ${project}")
 
                     def result = status.split("\n").find{ it.matches("^build.*started") }
-                    
+
                     if(!result) {
                       echo "ERROR: No started build found for ${appName}"
                       currentBuild.result = 'FAILURE'
                       return
                     }
-                    
+
                     // result can be:
                     // - build "build-name" started
                     // - build build.build.openshift.io/build-name started
@@ -39,7 +37,7 @@ try {
                     // Goal is to isolate "build-name"
                     def startedBuild = result.replaceAll("build [^0-9a-zA-Z]*", "").replaceAll("[^0-9a-zA-Z]* started", "").replaceFirst("^.*/", "")
                     echo "Build ${startedBuild} has started. Now watching it ..."
-                    
+
                     timeout(time: 20, unit: 'MINUTES') {
                       openshift.withCluster() {
                         openshift.withProject() {
@@ -52,7 +50,7 @@ try {
                             return object.status.phase == "Complete"
                           }
                         }
-                      }  
+                      }
                     }
                   }
                   stage("Deploy") {
