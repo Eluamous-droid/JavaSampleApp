@@ -13,16 +13,16 @@ try {
                   stage("Checkout") {
                     git url: "${GIT_SOURCE_URL}", branch: "${GIT_SOURCE_REF}"
                   }
-                  stage("Build WAR") {
+                  stage("Build JAR") {
                     sh "mvn clean package -Popenshift"
-                    stash name:"jar", includes:"target/app.jar*"
+                    stash name:"jar", includes:"target/app.jar"
                   }
                 }
 
                 node {
                   stage("Build Image") {
                     unstash name:"jar"
-                    def status = sh(returnStdout: true, script: "oc start-build ${appName}-docker --from-file=target/app.jar* -n ${project}")
+                    def status = sh(returnStdout: true, script: "oc start-build ${appName}-docker --from-file=target/app.jar -n ${project}")
 
                     def result = status.split("\n").find{ it.matches("^build.*started") }
                     
