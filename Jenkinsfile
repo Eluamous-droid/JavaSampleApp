@@ -14,8 +14,8 @@ try {
                     git url: "${GIT_SOURCE_URL}", branch: "${GIT_SOURCE_REF}"
                   }
                   stage("Build WAR") {
-                    sh "mvn clean package -Popenshift"
-                    stash name:"war", includes:"target/ROOT.war"
+                    sh "mvn clean package "
+                    stash name:"jar", includes:"target/app.jar"
                   }
                 }
 

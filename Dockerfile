@@ -1,3 +1,5 @@
-FROM wildfly
-COPY ROOT.war /wildfly/standalone/deployments/ROOT.war
-CMD $STI_SCRIPTS_PATH/run
+FROM java:8-jdk-alpine
+COPY ./build/libs/JavaSampleApp* /usr/app/
+WORKDIR /usr/app
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "JavaSampleApp*"]

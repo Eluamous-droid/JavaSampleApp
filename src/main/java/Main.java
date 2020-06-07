@@ -4,7 +4,7 @@ public class Main {
         while(true) {
             System.out.println("Sucks to suck");
             try {
-                Thread.sleep(60000);
+                Thread.sleep(600);
             }catch (Exception e){
 
             }
