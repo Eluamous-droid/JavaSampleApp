@@ -15,14 +15,14 @@ try {
                   }
                   stage("Build WAR") {
                     sh "mvn clean package -Popenshift"
-                    stash name:"jar", includes:"target/JavaSampleApp*"
+                    stash name:"jar", includes:"target/app.jar*"
                   }
                 }
 
                 node {
                   stage("Build Image") {
                     unstash name:"jar"
-                    def status = sh(returnStdout: true, script: "oc start-build ${appName}-docker --from-file=target/JavaSampleApp* -n ${project}")
+                    def status = sh(returnStdout: true, script: "oc start-build ${appName}-docker --from-file=target/app.jar* -n ${project}")
 
                     def result = status.split("\n").find{ it.matches("^build.*started") }
                     
