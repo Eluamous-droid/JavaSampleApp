@@ -30,7 +30,7 @@
                         <configuration>
                             <failOnMissingWebXml>false</failOnMissingWebXml>
                             <outputDirectory>target</outputDirectory>
-                            <jarName>app.jar</jarName>
+                            <jarName>app</jarName>
                         </configuration>
                     </plugin>
                 </plugins>
