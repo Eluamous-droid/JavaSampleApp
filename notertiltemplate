@@ -1,0 +1,6 @@
+Oc create til Javaapplicationtemplate og devopstools
+#Mangler at indsætte secrets fra mysql ind i java applicationen
+
+Java application skal have nogle creation parametre, kan ses i templaten hva det er, det er source urlen og applicationens navn
+Resten bliver ordnet automatisk i jenkins når der bliver pushed noget til repoed
+Git repoed indeholder en jenkins og en dockerfil som er meget baseline men får jobbet gennemført
